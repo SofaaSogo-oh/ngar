@@ -12,12 +12,22 @@
                       (mapcar (curry #'ash 1) 
                               (iota (length alist))))))
 
+(defun get-all-masks-num (dim)
+  (loop for i from 0 below (ash 1 dim) collect i))
+
+(defun list-num-to-list (dim masks)
+  (mapcar (rcurry #'num-to-list (1- dim))
+          masks))
+
 (defun get-all-masks (dim)
-  (loop for i from 0 below (ash 1 dim) collect
-        (num-to-list i (1- dim))))
+  (list-num-to-list dim
+    (get-all-masks-num dim)))
 
 (defun contains (l1 l2)
   (equal l2 (mapcar #'* l1 l2)))
+
+(defun contains-num (x1 x2)
+  (= l2 (logand x1 x2)))
 
 (defun pretty-format (alist &key (os t))
   (format os "~{~a~%~}" alist)
@@ -61,4 +71,17 @@
     (mapcar (rcurry #'num-to-list dim)
             lin-combs)))
 
+(defun get-cover (num masks)
+  (let* ((oasks (mapcar (curry #'logior num) masks))
+         (axe (mapcar (lambda (x y) (and (= x y) x)) masks oasks)))
+    (cdr (remove nil axe))))
+
+(set-of-all-subsets (get-cover 5 '(1 2 4 5 8 7 9 10 13)))
+
+(defun gen-bulges (dim init-p)
+  (let ((init-alist (get-all-masks-num dim)))
+    ))
+
 (pretty-format (get-hyperplane '(1 0 1)))
+
+
