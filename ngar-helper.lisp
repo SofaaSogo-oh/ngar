@@ -15,3 +15,7 @@
     (format t "\"~a\"" cmd)
     (exec-command cmd))) 
 
+(defun list-cp-into-desktop (path files)
+  (mapcar (curry #'cp-into-desktop path)
+          files))
+

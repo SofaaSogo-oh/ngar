@@ -2,4 +2,5 @@
   (:import-from #:alexandria-2 #:rcurry #:curry #:iota)
   (:import-from #:cl-ppcre #:split)
   (:use #:cl)
-  (:EXPORT #:cp-into-desktop))
+  (:EXPORT #:cp-into-desktop
+           #:list-cp-into-desktop))

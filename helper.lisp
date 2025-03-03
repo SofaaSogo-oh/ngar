@@ -1,7 +1,11 @@
 (asdf:load-system :ngar)
 
-(defparameter *home-desktop-path*
+(defparameter *desktop-path*
   "/mnt/c/Users/NaumiK/Desktop")
 
-(ngar:cp-into-desktop *home-desktop-path*
-                 "note-16-56.xopp")
+(defparameter *desktop-path*
+  "/mnt/c/Users/User/Desktop")
+
+(ngar:list-cp-into-desktop *DESKTOP-PATH*
+                           (list
+                             "note-16-56.xopp"))
