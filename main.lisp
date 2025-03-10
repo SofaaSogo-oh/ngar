@@ -78,10 +78,36 @@
 
 (set-of-all-subsets (get-cover 5 '(1 2 4 5 8 7 9 10 13)))
 
-(defun gen-bulges (dim init-p)
-  (let ((init-alist (get-all-masks-num dim)))
-    ))
+(get-cover 0 '(0 1 2 3 4 5 6 7))
 
+(defun gen-bulges (init-p cov &key 
+                          (sub-cov #'get-cover))
+  (let ((memo-table (make-hash-table :test #'equal)))
+    (labels 
+        ((is-memo (x) (gethash x memo-table))
+         (memo (x) (setf (gethash x memo-table) t))
+         (iter (q r)
+           (if (null q) 
+               r
+               (let ((x (car q)))
+                 (unless (is-memo x)
+                   (memo x)
+                   (let* ((p (funcall sub-cov x cov))
+                          (q1 (append (cdr q) p))
+                          (q2 (remove-if #'is-memo q1))
+                          (r1 (append r p)))
+                     (iter q2 r1)))))))
+      (remove-duplicates (iter (list init-p) (list init-p))))))
+
+
+(defun order-depends-combs (dim)
+  (format t "~{~a~%~}"
+    (loop for i from 0 to (1- (ash 1 dim)) collect
+      (mapcar (rcurry #'num-to-list (1- dim))
+              (gen-bulges i (get-all-masks-num dim))))))
+
+(order-depends-combs 4)
+          
 (pretty-format (get-hyperplane '(1 0 1)))
 
 
