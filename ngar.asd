@@ -6,4 +6,5 @@
   :serial t
   :COMPONENTS ((:file "package")
                (:file "ngar-helper")
+               (:file "bitset-utils")
                (:file "main")))
