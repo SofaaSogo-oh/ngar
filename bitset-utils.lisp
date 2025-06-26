@@ -47,11 +47,14 @@
                      (lp a1 m1 res1)))))
       (lp alist mask nil))))
 
+(defun print-set (alist)
+  (if (null alist)
+    "∅"
+    (format nil "{~{~a~^, ~}}" alist)))
+
 (defun print-mask (alist mask) 
   (let ((applied-mask (apply-mask alist mask)))
-    (if (null applied-mask)
-        "∅"
-        (format nil "{~{~a~^, ~}}" applied-mask))))
+    (print-set applied-mask)))
 
 (defun set-of-all-subsets (alist)
   (let* ((masks (get-all-masks (length alist))))
