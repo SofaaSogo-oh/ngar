@@ -33,7 +33,7 @@
     (loop for mask in masks do
           (let ((d-mask (print-mask applier mask)))
             (format t "~a ~:[∉~;∈~] G:~%" 
-                               mask
+                               d-mask
                                (member mask convex :test #'equal))
             (maphash (lambda (key value)
                        (let ((d-key (print-mask applier key))
