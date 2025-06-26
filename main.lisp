@@ -32,7 +32,7 @@
          (g-table (hulls-to-hashmap convex check-masks)))
     (loop for mask in masks do
           (let ((d-mask (print-mask applier mask)))
-            (format t "~a ~:[∉~;∈~] G:~%" 
+            (format t "~%~a ~:[∉~;∈~] G:~%" 
                                d-mask
                                (member mask convex :test #'equal))
             (maphash (lambda (key value)
